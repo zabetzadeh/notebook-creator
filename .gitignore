@@ -1,0 +1,22 @@
+# Research data and automatically generated notebook copies
+/notebooks/
+**/*.json
+**/*.json.bak
+**/notebook.html
+!templates/notebook.html
+*.bak
+*.tmp
+
+# Local tooling and generated artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+.DS_Store
+.codebase-memory/
+*.zip
+*.tar.gz
+.coverage
+htmlcov/

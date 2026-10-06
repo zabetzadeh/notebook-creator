@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Notebook Creator</title>
+  <link rel="stylesheet" href="/assets/creator.css">
+  <script src="/assets/creator.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">n.</span><span>Notebook Creator<small>A home for your research</small></span></a><span class="local"><i aria-hidden="true"></i>Local JSON storage</span></header>
+    <div class="hero"><div><p class="eyebrow">Map / test / recap / continue</p><h1>One notebook.<br><span>For every target.</span></h1><p class="intro">Keep each target’s functionality map, test results, session recaps, and next checks together. Your research stays in its own folder.</p></div><div class="file-note"><span class="mono">YOUR NOTEBOOK FILES</span><div class="file-tree"><b>my-target/</b><span>↳ notebook.html</span><span>↳ notebook.json</span></div><p>Open from any browser.<br>Pick up the same research.</p></div></div>
+    <div class="workspace">
+      <section class="library" aria-labelledby="library-title"><div class="section-heading"><h2 id="library-title">Your notebooks <span id="notebook-count">0</span></h2><button class="btn ghost" id="refresh" type="button">Refresh ↻</button></div><label for="search">Find a target</label><input id="search" type="search" placeholder="Search target names…" autocomplete="off"><div id="load-error" class="error" role="alert" hidden></div><div class="notebooks" id="notebooks"></div></section>
+      <section class="create-panel" aria-labelledby="create-title"><p class="eyebrow pink">A fresh starting point</p><h2 id="create-title">Create a notebook</h2><p class="muted">Start an empty notebook for a new target. Existing notebooks stay in their own folders.</p><form id="create-form"><div class="field"><label for="target">Target name / domain</label><input id="target" name="target" placeholder="e.g. example.com" maxlength="500" required></div><div class="field"><label for="name">Folder name</label><input id="name" name="name" placeholder="e.g. example" maxlength="64" pattern="[a-z0-9][a-z0-9_-]{0,63}" required><p class="help">Lowercase letters, numbers, hyphens, or underscores.</p></div><div class="field"><label for="program-url">Program engagement URL <span class="optional">optional</span></label><input id="program-url" name="programUrl" type="url" placeholder="https://…" maxlength="2000"></div><div id="create-error" class="error" role="alert" hidden></div><button class="btn primary" type="submit" id="create">Create & open notebook ↗</button><p class="help">Creates the HTML template and its JSON database automatically.</p></form></section>
+    </div>
+    <footer><span>Notebook Creator · v0.1.0</span><span>Research files are saved locally. No account needed.</span></footer>
+    <noscript><p>Enable JavaScript to create notebooks here. You can also use the command-line creator.</p></noscript>
+  </main>
+</body>
+</html>

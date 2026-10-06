@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="recon-notebook" content="v1">
+  <title>Research notebook</title>
+  <style>
+    :root{--bg:#101014;--panel:#18181e;--raised:#202027;--line:#303038;--text:#f3f0f4;--muted:#aaa7b3;--pink:#f6a5c8;--mint:#a3ddca;--amber:#e6c68b;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button,a,input,select,textarea,summary{outline-offset:4px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--pink)}[hidden]{display:none!important}a{color:var(--pink);text-underline-offset:4px}button:disabled{opacity:.5;cursor:default}h1,h2,h3,p{margin-top:0}h2{font-size:19px;letter-spacing:-.4px}h3{font-size:16px;letter-spacing:-.2px}input,select,textarea{width:100%;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}textarea{resize:vertical;min-height:95px;line-height:1.6}input::placeholder,textarea::placeholder{color:#8d8a97}label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}small{font-size:12px}code{font:12px/1.6 var(--mono);color:var(--pink);overflow-wrap:anywhere}.muted{color:var(--muted)}.mono{font-family:var(--mono)}.eyebrow{font:11px/1.6 var(--mono);letter-spacing:1.8px;text-transform:uppercase;color:var(--muted)}.pink{color:var(--pink)}.mint{color:var(--mint)}
+    .shell{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:30px 20px;display:flex;flex-direction:column;background:#131317;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:11px;margin-bottom:35px}.brand-mark{border:1px solid #5d394c;background:#30202b;border-radius:9px;width:38px;height:38px;display:grid;place-items:center;color:var(--pink);font:22px Georgia,serif}.brand b{display:block;font-size:16px;letter-spacing:-.5px}.brand small{display:block;color:var(--muted);font-size:11px}.target{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 8px;margin-bottom:25px}.target-title{margin:6px 0 4px;font-size:15px;font-weight:600}.dot{display:inline-block;width:6px;height:6px;background:var(--mint);border-radius:50%;margin-right:7px}.sidebar nav{display:grid;gap:6px}.nav-button{background:transparent;border:1px solid transparent;border-radius:8px;text-align:left;padding:11px 10px;color:var(--muted);display:flex;align-items:center;gap:11px}.nav-button .nav-icon{font:17px var(--mono);width:20px;text-align:center}.nav-button .nav-count{margin-left:auto;font:11px var(--mono);opacity:.8}.nav-button:hover{background:var(--raised);color:var(--text)}.nav-button[aria-current="page"]{background:#30232c;border-color:#553447;color:var(--pink)}.sidebar-bottom{margin-top:auto;padding:25px 8px 0}.save-status{font-size:12px;display:flex;gap:8px;align-items:center;margin-bottom:7px}.save-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0}.save-dot.warning{background:var(--amber)}.sidebar-bottom p{font-size:11px;color:var(--muted);margin-bottom:15px}.sidebar-bottom a{font-size:11px;color:var(--muted)}
+    main{min-width:0;width:100%;max-width:1480px;margin:0 auto;padding:27px 42px 60px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:36px}.topbar-left{display:flex;gap:14px;align-items:center}.topbar-left span+span{border-left:1px solid var(--line);padding-left:14px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px;border:1px solid var(--line);border-radius:7px;background:var(--raised);color:var(--text);font-size:12px;font-weight:550;text-decoration:none;white-space:nowrap}.btn:hover{border-color:#706674;background:#29252e}.btn.primary{background:var(--pink);border-color:var(--pink);color:#281521}.btn.primary:hover{background:#ffc0dd}.btn.ghost{background:transparent}.btn.danger{color:#ffb1b9}.btn.small{padding:6px 10px;font-size:11px}.page-heading{display:flex;justify-content:space-between;gap:22px;align-items:flex-end;margin-bottom:27px}.page-heading h1{font-size:clamp(30px,3.2vw,46px);line-height:1.15;letter-spacing:-1.5px;font-weight:650;margin:10px 0 13px}.page-heading p{color:var(--muted);max-width:620px;margin-bottom:0;font-size:14px}.page-heading .btn{margin-bottom:3px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:28px}.stat{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:19px 22px}.stat .value{font:32px/1.2 var(--mono);display:block;letter-spacing:-1.5px;margin:8px 0}.stat .caption{font-size:11px;color:var(--muted)}.overview-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:24px;min-width:0}.panel-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:21px}.panel-header h2{margin:0}.panel-header .btn{flex-shrink:0}.continue-panel{background:linear-gradient(125deg,#30212c,#1c1b23);border-color:#594051;position:relative;overflow:hidden}.continue-panel::after{content:"↗";position:absolute;right:18px;bottom:-25px;font:160px/1 var(--mono);color:#f6a5c808;pointer-events:none}.continue-panel h2{font-size:24px;line-height:1.3;letter-spacing:-.6px;margin:13px 0}.continue-panel p{color:#c4b6c5;font-size:13px;max-width:480px}.continue-panel .actions{margin-top:20px;position:relative;z-index:1}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font:10px/1.5 var(--mono);border:1px solid var(--line);border-radius:4px;padding:3px 7px;color:var(--muted)}.chip.pink{color:var(--pink);border-color:#654252;background:#33232d}.chip.mint{color:var(--mint);border-color:#38584d;background:#1f302b}.chip.amber{color:var(--amber);border-color:#594c32;background:#302b21}.coverage-row{margin-bottom:17px}.coverage-row:last-child{margin-bottom:0}.coverage-meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:7px}.coverage-meta span:last-child{font:11px var(--mono);color:var(--muted)}.progress{height:4px;border-radius:4px;background:#303039;overflow:hidden}.progress span{height:100%;display:block;background:var(--pink);border-radius:4px;transition:width .2s}.log-preview{padding:15px 0;border-top:1px solid var(--line)}.log-preview:first-child{border-top:0;padding-top:0}.log-preview:last-child{padding-bottom:0}.log-preview h3{margin:6px 0;font-size:14px}.log-preview p{font-size:12px;color:var(--muted);margin:0;white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.next-preview{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line);align-items:start}.next-preview:first-child{border-top:0;padding-top:0}.next-preview .sequence{font:12px var(--mono);color:var(--pink);margin-top:3px}.next-preview h3{font-size:13px;margin:0 0 6px}.next-preview .btn{margin-left:auto}.next-preview .preview-body{min-width:0;flex:1;overflow-wrap:anywhere}.info-strip{border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin-top:24px;display:flex;gap:15px;align-items:center;color:var(--muted);font-size:12px}.info-strip b{color:var(--text)}.info-strip .btn{margin-left:auto;flex-shrink:0}
+    .toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:23px 0 16px}.toolbar .search{flex:1;min-width:210px}.toolbar .filter{min-width:150px;max-width:220px;flex:1}.filter-chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 22px}.filter-chips button{border:1px solid var(--line);background:transparent;border-radius:6px;color:var(--muted);font-size:11px;padding:6px 10px}.filter-chips button[aria-pressed="true"]{color:var(--pink);border-color:#694454;background:#32232b}.resultbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px;font-size:12px;color:var(--muted)}.features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;align-items:start}.feature{border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden;min-width:0}.feature summary{list-style:none;cursor:pointer;padding:20px;display:grid;grid-template-columns:28px minmax(0,1fr) 18px;gap:9px;align-items:start}.feature summary::-webkit-details-marker{display:none}.feature-number{font:11px var(--mono);color:var(--pink);margin-top:4px}.feature h3{margin:0 0 5px;line-height:1.35}.feature .path{font-size:11px;color:var(--muted);overflow-wrap:anywhere;margin-bottom:12px}.feature .summary-progress{font:10px var(--mono);color:var(--muted);margin-top:12px}.chevron{font:19px var(--mono);color:var(--pink)}details[open]>summary .chevron{transform:rotate(45deg)}.feature-body{border-top:1px solid var(--line);padding:20px}.subheading{font:10px var(--mono);letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin:0 0 12px}.nodes{margin:0 0 15px;padding:0;list-style:none;columns:2;column-gap:18px}.nodes>li{font-size:12px;padding:3px 0 3px 12px;border-left:1px solid #654454;break-inside:avoid}.nodes ul{list-style:none;padding:3px 0 0;color:var(--muted)}.nodes ul li{padding:2px 0}.nodes ul li::before{content:"↳ ";color:var(--pink)}.observation-note{font-size:11px;color:var(--muted);border-left:2px solid #695063;padding-left:10px;margin-bottom:22px}.test-row{padding:14px 0;border-top:1px solid var(--line)}.test-top{display:flex;gap:8px;align-items:start;justify-content:space-between}.test-top h4{font-size:13px;font-weight:550;margin:0;line-height:1.5}.test-row p{font-size:12px;color:var(--muted);margin:7px 0 10px}.expected{font-size:11px;background:var(--bg);padding:9px 11px;border-radius:6px;color:var(--muted);margin-bottom:10px}.expected b{color:var(--mint);font-weight:500}.test-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.test-controls select{font-size:11px;padding:7px 9px;max-width:160px}.test-controls a{font-size:10px;margin-left:auto}.test-row textarea{font-size:11px;min-height:60px;margin-top:10px}.feature-notes{border-top:1px solid var(--line);padding-top:16px;margin-top:6px}.feature-notes textarea{font-size:12px}.feature-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.empty{text-align:center;border:1px dashed var(--line);border-radius:10px;padding:36px 20px;color:var(--muted);grid-column:1/-1}.empty h3{color:var(--text);margin-bottom:5px}.empty p{font-size:12px}.empty .btn{margin-top:8px}.reference-note{font-size:11px;color:var(--muted);margin-bottom:5px}.reference-note a{color:var(--muted)}
+    .recaps{display:grid;gap:17px}.recap{border:1px solid var(--line);background:var(--panel);border-radius:11px;display:grid;grid-template-columns:130px minmax(0,1fr);overflow:hidden}.recap-date{padding:25px 20px;border-right:1px solid var(--line);background:#1c1920}.recap-date strong{display:block;font:34px/1.3 var(--mono);color:var(--pink);letter-spacing:-2px}.recap-date span{font:11px var(--mono);color:var(--muted)}.recap-body{padding:25px}.recap-header{display:flex;justify-content:space-between;gap:16px;align-items:start;margin-bottom:15px}.recap-header h2{margin-bottom:8px}.recap-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px}.prose{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;color:#ccc6d1;margin:0}.recap-block{margin-top:18px}.recap-block:first-child{margin-top:0}.recap-block .subheading{margin-bottom:7px}.recap-next{background:#25202a;border-left:2px solid var(--pink);padding:12px 14px;margin-top:18px}.recap-next .prose{font-size:12px}.task-list{display:grid;gap:12px}.task{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:19px 22px;display:flex;gap:16px;align-items:start}.task-check{appearance:none;width:21px;height:21px;padding:0;border-radius:6px;border:1px solid #62546a;background:var(--bg);margin:3px 0 0;cursor:pointer;flex-shrink:0}.task-check:checked{background:var(--mint);border-color:var(--mint)}.task-check:checked::after{content:"✓";display:block;color:#172c24;font-size:14px;text-align:center;line-height:19px}.task-body{flex:1;min-width:0}.task h3{margin:0 0 9px;overflow-wrap:anywhere}.task p{font-size:12px;color:var(--muted);margin:10px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}.task.done h3{text-decoration:line-through;color:var(--muted)}.task-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.task-controls select{width:135px;font-size:11px;padding:7px 9px}.footer{border-top:1px solid var(--line);padding-top:18px;margin-top:36px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
+    dialog{width:min(660px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;background:var(--panel);color:var(--text);border:1px solid #594650;border-radius:12px;box-shadow:0 25px 100px #0008}dialog::backdrop{background:#08070bd9;backdrop-filter:blur(4px)}.dialog-header{padding:22px 25px 17px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line)}.dialog-header h2{margin:0}.close{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;width:30px;height:30px;display:grid;place-items:center;font-size:19px;padding:0}.dialog-body{padding:23px 25px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.field.full{grid-column:1/-1}.form-actions{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--line);padding-top:20px;margin-top:21px}.form-help{color:var(--muted);font-size:11px;margin-top:6px}.form-error{color:#ffb1b9;font-size:12px;margin-top:12px}.endpoint-block{margin-bottom:20px}.endpoint-block h3{font-size:13px}.endpoint-block code{display:block;margin-bottom:8px;color:#d9bfd0;font-size:11px}.toast{position:fixed;bottom:24px;left:calc(50% + 100px);transform:translateX(-50%);z-index:20;background:#34303c;border:1px solid #685570;border-radius:8px;padding:12px 20px;color:var(--text);font-size:12px;max-width:calc(100vw - 40px);box-shadow:0 8px 30px #0005}.storage-alert{background:#302b21;border:1px solid #665234;padding:12px 16px;border-radius:8px;font-size:12px;color:var(--amber);margin-bottom:24px}
+    @media(min-width:1600px){main{padding-right:64px;padding-left:64px}}@media(max-width:1150px){main{padding:26px}.shell{grid-template-columns:210px minmax(0,1fr)}.overview-grid{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr}.stats{gap:10px}.stat{padding:17px}.task{flex-wrap:wrap}.task-controls{margin-left:37px}.topbar-left span+span{display:none}}@media(max-width:850px){.overview-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.recap{grid-template-columns:100px minmax(0,1fr)}.recap-columns{grid-template-columns:1fr}.recap-date{padding:22px 14px}.page-heading{align-items:start}.topbar{align-items:start}.topbar .actions{justify-content:flex-end}.nodes{columns:1}}@media(max-width:650px){.shell{display:block}.sidebar{height:auto;position:relative;border-right:0;border-bottom:1px solid var(--line);padding:18px}.brand{margin:0 0 17px}.target,.sidebar-bottom{display:none}.sidebar nav{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.nav-button{padding:9px 3px;display:flex;flex-direction:column;gap:5px;align-items:center;font-size:10px;text-align:center;line-height:1.3}.nav-count{display:none}.nav-button .nav-icon{font-size:17px}.topbar{margin-bottom:25px;gap:10px;flex-wrap:wrap}.topbar-left{font-size:9px}.topbar .btn{padding:7px 9px;font-size:10px}.topbar .print-button{display:none}main{padding:22px 18px 40px}.page-heading{display:block}.page-heading .btn{margin-top:16px}.page-heading h1{font-size:32px;letter-spacing:-1px}.stats{gap:9px;margin-bottom:20px}.stat{padding:15px}.stat .value{font-size:28px}.panel{padding:20px}.panel-header h2{font-size:17px}.toolbar{gap:8px}.toolbar .search{min-width:100%;flex-basis:100%}.toolbar .filter{min-width:120px;max-width:none}.recap{grid-template-columns:1fr}.recap-date{padding:14px 20px;border-right:0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}.recap-date strong{font-size:24px}.recap-body{padding:20px}.recap-header{flex-wrap:wrap}.task{padding:17px;gap:12px}.task-controls{margin-left:33px}.info-strip{flex-wrap:wrap}.info-strip .btn{margin-left:0}.footer{flex-direction:column;gap:5px}.toast{left:50%;width:max-content}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.dialog-header,.dialog-body{padding:20px}.test-top{flex-wrap:wrap}.test-controls{flex-wrap:wrap}.test-controls a{margin-left:0}.reference-note{line-height:1.8}}
+    .preparing-print .view[hidden]{display:block!important}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}dialog::backdrop{backdrop-filter:none}}@media print{body{background:white;color:#111}.shell{display:block}.sidebar,.topbar,.btn,.toolbar,.filter-chips,.feature-actions,.test-controls a,.toast,.storage-alert,.footer{display:none!important}main{padding:0;max-width:none}.view[hidden]{display:block!important}.view{break-before:page}.view:first-of-type{break-before:auto}.overview-grid,.features,.recap-columns{display:block}.panel,.feature,.recap,.task,.stat{background:white!important;border-color:#bbb!important;color:#111;box-shadow:none;margin-bottom:14px;break-inside:avoid}.muted,.eyebrow,.path,.prose,.test-row p,.expected,.observation-note,.recap-date span,.subheading,.reference-note,.task p{color:#444!important}.pink,.chip,.feature-number,.recap-date strong{color:#8b2850!important}.page-heading h1{font-size:28px}h2,h3{color:#111}.recap-date,.recap-next,.expected{background:#f4f4f4}.test-row textarea,.feature-notes textarea,input,select{background:#fff;color:#222;border-color:#bbb;resize:none}.feature[hidden],.task[hidden],.recap[hidden]{display:block!important}.feature .chevron,.continue-panel::after{display:none}.recap{display:block}.recap-date{border-right:0}.task-check{display:none}.print-note{display:block!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Notebook navigation">
+      <div class="brand"><div class="brand-mark" aria-hidden="true">r.</div><div><b id="brand-name">Research / field notes</b><small>A bug hunter’s notebook</small></div></div>
+      <div class="target"><div class="eyebrow">Current target</div><div class="target-title" id="target-name">Loading target…</div><small class="muted"><span class="dot"></span>Research in progress</small></div>
+      <nav id="navigation" aria-label="Sections">
+        <button type="button" class="nav-button" data-view="overview" aria-current="page"><span class="nav-icon" aria-hidden="true">◫</span><span>Overview</span></button>
+        <button type="button" class="nav-button" data-view="features"><span class="nav-icon" aria-hidden="true">⌘</span><span>Functionalities & tests</span><span class="nav-count" id="nav-features"></span></button>
+        <button type="button" class="nav-button" data-view="recaps"><span class="nav-icon" aria-hidden="true">≡</span><span>Session recaps</span><span class="nav-count" id="nav-recaps"></span></button>
+        <button type="button" class="nav-button" data-view="next"><span class="nav-icon" aria-hidden="true">↗</span><span>Next checks</span><span class="nav-count" id="nav-tasks"></span></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="save-status"><span class="save-dot" id="save-dot"></span><span id="save-status" role="status" aria-live="polite">Loading JSON…</span></div><p id="storage-help">The adjacent JSON file holds your research. Every browser uses the same file.</p><a id="program-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Program engagement ↗</a></div>
+    </aside>
+    <main>
+      <div class="topbar"><div class="topbar-left eyebrow"><a class="pink" href="/" style="text-decoration:none">← Notebook Creator</a><span id="today"></span></div><div class="actions"><button type="button" class="btn ghost" id="target-settings">Target settings</button><button type="button" class="btn ghost" id="export">↓ Export backup</button><button type="button" class="btn ghost" id="import">↑ Import</button><button type="button" class="btn ghost print-button" id="print">Print / PDF</button></div></div>
+      <div id="storage-alert" class="storage-alert" role="alert" hidden></div>
+      <section id="view-overview" class="view" aria-labelledby="overview-title">
+        <header class="page-heading"><div><div class="eyebrow">01 / The working picture</div><h1 id="overview-title" tabindex="-1">Pick up where <span class="pink">you left off.</span></h1><p>Your mapped surfaces, what you’ve checked, and the thread to follow next. One place to keep your target research moving.</p></div><button type="button" class="btn primary" data-action="new-recap">+ Log a session</button></header>
+        <div class="stats" id="stats"></div>
+        <div class="overview-grid">
+          <div class="panel continue-panel" id="continue-panel"></div>
+          <div class="panel"><div class="panel-header"><h2>Coverage by functionality</h2><span class="eyebrow">Reviewed / total</span></div><div id="coverage"></div><p class="form-help" style="margin:20px 0 0">Reviewed and lead statuses count as checked. A lead still needs validation.</p></div>
+          <div class="panel"><div class="panel-header"><h2>Latest sessions</h2><button type="button" class="btn ghost small" data-goto="recaps">All recaps ↗</button></div><div id="recent-recaps"></div></div>
+          <div class="panel"><div class="panel-header"><h2>On your radar</h2><button type="button" class="btn ghost small" data-goto="next">Open queue ↗</button></div><div id="next-preview"></div></div>
+        </div>
+        <div class="info-strip"><span class="mono pink" aria-hidden="true">{ }</span><span><b id="evidence-label">Your observed evidence is here.</b> <span id="source-summary"></span></span><button type="button" class="btn ghost small" id="show-evidence">View API inventory ↗</button></div>
+      </section>
+      <section id="view-features" class="view" hidden aria-labelledby="features-title">
+        <header class="page-heading"><div><div class="eyebrow">02 / Map → hypothesis → evidence</div><h1 id="features-title" tabindex="-1">Functionalities <span class="pink">& tests.</span></h1><p>Your feature map, paired with research checks. Record the result of each check and keep your JavaScript leads beside the feature.</p></div><button type="button" class="btn primary" id="new-feature">+ Add functionality</button></header>
+        <p class="reference-note">Suggestions are hypotheses tailored to your map, informed by <a href="https://wstg.owasp.org/" target="_blank" rel="noopener noreferrer">OWASP WSTG ↗</a>. Use your controlled accounts and confirm program scope before testing.</p>
+        <div class="toolbar"><div class="search"><label for="feature-search">Search functionalities, routes, tests, or your notes</label><input id="feature-search" type="search" placeholder="Try: OAuth, XSS, /wallet, upload…" autocomplete="off"></div><div class="filter"><label for="test-focus">Test focus</label><select id="test-focus"><option value="all">All checks</option><option>XSS</option><option>IDOR</option><option>OAuth</option><option>Authentication</option><option>Privacy</option><option>CSRF</option><option>Logic</option><option>JS review</option><option>Upload</option><option>Custom</option></select></div><div class="filter"><label for="feature-status">Progress</label><select id="feature-status"><option value="all">All progress</option><option value="untouched">Not started</option><option value="active">In progress</option><option value="reviewed">All checks reviewed</option><option value="lead">Has a lead</option><option value="blocked">Has a blocked check</option></select></div></div>
+        <div class="filter-chips" id="categories" aria-label="Feature categories"></div>
+        <div class="resultbar"><span id="feature-results" role="status" aria-live="polite"></span><div class="actions"><button type="button" class="btn ghost small" id="expand">Expand all</button><button type="button" class="btn ghost small" id="collapse">Collapse all</button><button type="button" class="btn ghost small" id="clear-filters">Clear filters</button></div></div>
+        <div class="features" id="features"></div>
+      </section>
+      <section id="view-recaps" class="view" hidden aria-labelledby="recaps-title">
+        <header class="page-heading"><div><div class="eyebrow">03 / Keep the research trail</div><h1 id="recaps-title" tabindex="-1">Every session. <span class="pink">A clear recap.</span></h1><p>Write what you checked, what you learned, where the evidence lives, and what you’ll return to. Your history stays with the target’s JSON file.</p></div><button type="button" class="btn primary" data-action="new-recap">+ Log a session</button></header>
+        <div class="toolbar"><div class="search"><label for="recap-search">Search your session history</label><input id="recap-search" type="search" placeholder="Search findings, notes, request IDs…" autocomplete="off"></div></div>
+        <div class="resultbar"><span id="recap-results" role="status" aria-live="polite"></span><span>Newest session first</span></div><div class="recaps" id="recaps"></div>
+      </section>
+      <section id="view-next" class="view" hidden aria-labelledby="next-title">
+        <header class="page-heading"><div><div class="eyebrow">04 / Leave yourself a starting point</div><h1 id="next-title" tabindex="-1">The <span class="pink">next checks.</span></h1><p>A prioritized queue for open questions, tests, and JavaScript leads. Add enough context that your next session can start immediately.</p></div><button type="button" class="btn primary" data-action="new-task">+ Add next check</button></header>
+        <div class="toolbar"><div class="search"><label for="task-search">Search the queue</label><input id="task-search" type="search" placeholder="Search a check, route, or note…" autocomplete="off"></div><div class="filter"><label for="task-status">Status</label><select id="task-status"><option value="open">Open checks</option><option value="all">All checks</option><option value="todo">Planned</option><option value="doing">In progress</option><option value="blocked">Blocked</option><option value="done">Done</option></select></div><div class="filter"><label for="task-priority">Priority</label><select id="task-priority"><option value="all">All priorities</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div></div>
+        <div class="resultbar"><span id="task-results" role="status" aria-live="polite"></span><span>High priority first</span></div><div class="task-list" id="tasks"></div>
+      </section>
+      <footer class="footer"><span>Local notebook · Progress is based on your recorded checks.</span><span id="source-footer"></span></footer>
+      <noscript><p>This notebook needs JavaScript. Start the local launcher and enable JavaScript to edit this notebook.</p></noscript>
+    </main>
+  </div>
+  <input id="import-file" type="file" accept=".json,application/json" hidden>
+  <dialog id="editor" aria-labelledby="editor-title"><div class="dialog-header"><h2 id="editor-title"></h2><button type="button" class="close" data-close="editor" aria-label="Close editor">×</button></div><form id="editor-form" class="dialog-body"><div id="editor-fields" class="form-grid"></div><p id="editor-help" class="form-help"></p><p id="editor-error" class="form-error" role="alert" hidden></p><div class="form-actions"><button type="button" class="btn ghost" data-close="editor">Cancel</button><button type="submit" class="btn primary">Save</button></div></form></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-header"><h2 id="confirm-title"></h2><button type="button" class="close" data-close="confirm-dialog" aria-label="Cancel">×</button></div><div class="dialog-body"><p id="confirm-message" class="prose"></p><div class="form-actions"><button type="button" class="btn ghost" data-close="confirm-dialog">Cancel</button><button type="button" class="btn primary" id="confirm-accept">Continue</button></div></div></dialog>
+  <dialog id="evidence-dialog" aria-labelledby="evidence-title"><div class="dialog-header"><h2 id="evidence-title">Observed API inventory</h2><button type="button" class="close" data-close="evidence-dialog" aria-label="Close API inventory">×</button></div><div class="dialog-body" id="evidence-body"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script>
+    'use strict';
+        const STORAGE_KEY = 'recon-notebook-browser:' + location.pathname;
+    const FORMAT = 'recon-notebook';
+    const CATEGORY_LIST = ['Profile & members','Account & security','Selling & discovery','Shipping & payments','Messages & activity','Preferences & privacy','Other functionality'];
+    const TEST_STATUSES = {todo:'Not started',doing:'In progress',reviewed:'Reviewed',lead:'Lead',blocked:'Blocked'};
+    const TASK_STATUSES = {todo:'Planned',doing:'In progress',blocked:'Blocked',done:'Done'};
+    const PRIORITIES = {high:'High',medium:'Medium',low:'Low'};
+    const REFERENCES = {
+      idor:'https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References/',
+      xss:'https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting/',
+      dom:'https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting/',
+      oauth:'https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses/',
+      reset:'https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities/',
+      csrf:'https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery/'
+    };
+    function initialState(){return {format:FORMAT,version:1,target:'New target',programUrl:'',sourceLabel:'',inventory:[],inventoryNote:'',routeNotes:'',updatedAt:null,features:[],featureNotes:{},checks:{},recaps:[],tasks:[]};}
+    const $ = id => document.getElementById(id);
+    const el = (tag,className,text) => {const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
+    function button(text,handler,className='btn ghost small'){const node=el('button',className,text);node.type='button';node.addEventListener('click',handler);return node;}
+    const chip = (text,tone='') => el('span','chip '+tone,text);
+    const uid = prefix => prefix+'-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
+    const isObject = value => value!==null&&typeof value==='object'&&!Array.isArray(value);
+    const completed = status => status==='reviewed'||status==='lead';
+    function todayISO(){const now=new Date();return [now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');}
+    function dateValue(value){return new Date(value+'T12:00:00');}
+    function validDate(value){return typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&!Number.isNaN(dateValue(value).valueOf())&&[dateValue(value).getFullYear(),String(dateValue(value).getMonth()+1).padStart(2,'0'),String(dateValue(value).getDate()).padStart(2,'0')].join('-')===value;}
+    function formatDate(value){return dateValue(value).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+    function textMatch(text,query){return query.toLowerCase().trim().split(/\s+/).filter(Boolean).every(term=>text.toLowerCase().includes(term));}
+    // Reconstruct an allowed schema rather than trusting arbitrary backup objects.
+    function validateBackup(data){
+      const fail=()=>{throw new Error('This file is not a valid research notebook backup. Your existing notes were kept.');};
+      const str=(value,max=30000)=>{if(typeof value!=='string'||value.length>max)fail();return value;};
+      const id=value=>{str(value,100);if(!/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(value)||['__proto__','constructor','prototype'].includes(value))fail();return value;};
+      const array=(value,max)=>{if(!Array.isArray(value)||value.length>max)fail();return value;};
+      const unique=values=>{if(new Set(values).size!==values.length)fail();};
+      const choice=(value,choices)=>{if(!choices.includes(value))fail();return value;};
+      if(!isObject(data)||data.format!==FORMAT||data.version!==1||typeof data.target!=='string'||!data.target.trim())fail();
+      const features=array(data.features,300).map(feature=>{
+        if(!isObject(feature))fail();
+        const items=array(feature.items,100).map(item=>{if(typeof item==='string')return str(item,2000);if(!isObject(item))fail();return {label:str(item.label,2000),children:array(item.children,100).map(value=>str(value,2000))};});
+        const tests=array(feature.tests,100).map(test=>{if(!isObject(test))fail();return {id:id(test.id),type:choice(test.type,['XSS','IDOR','OAuth','Authentication','Privacy','CSRF','Logic','JS review','Upload','Custom']),title:str(test.title,500),detail:str(test.detail),expected:str(test.expected),ref:choice(test.ref,['',...Object.keys(REFERENCES)])};});
+        unique(tests.map(test=>test.id));
+        const tags=array(feature.tags??[],20).map(value=>str(value,100));unique(tags);if(tags.some(value=>!value.trim()))fail();
+        return {id:id(feature.id),title:str(feature.title,500),group:choice(feature.group,CATEGORY_LIST),path:str(feature.path,2000),items,note:str(feature.note||''),tags,custom:feature.custom===true,tests};
+      });
+      unique(features.map(feature=>feature.id));
+      const featureIds=new Set(features.map(feature=>feature.id));
+      const testIds=new Set(features.flatMap(feature=>feature.tests.map(test=>test.id)));
+      if(features.flatMap(feature=>feature.tests).length!==testIds.size)fail();
+      const featureRef=value=>{if(value!==''&&!featureIds.has(value))fail();return value;};
+      if(!isObject(data.featureNotes)||!isObject(data.checks))fail();
+      const featureNotes=Object.create(null),checks=Object.create(null);
+      for(const [key,value] of Object.entries(data.featureNotes)){if(!featureIds.has(key))fail();featureNotes[key]=str(value);}
+      for(const [key,value] of Object.entries(data.checks)){if(!testIds.has(key)||!isObject(value))fail();checks[key]={status:choice(value.status,Object.keys(TEST_STATUSES)),result:str(value.result),updatedAt:str(value.updatedAt||'',100)};}
+      const recaps=array(data.recaps,2000).map(recap=>{if(!isObject(recap)||!validDate(recap.date))fail();return {id:id(recap.id),date:recap.date,title:str(recap.title,500),featureId:featureRef(recap.featureId),focus:str(recap.focus,200),summary:str(recap.summary),findings:str(recap.findings),evidence:str(recap.evidence),next:str(recap.next),notes:str(recap.notes)};});
+      unique(recaps.map(recap=>recap.id));
+      const tasks=array(data.tasks,5000).map(task=>{if(!isObject(task))fail();return {id:id(task.id),title:str(task.title,500),featureId:featureRef(task.featureId),priority:choice(task.priority,Object.keys(PRIORITIES)),status:choice(task.status,Object.keys(TASK_STATUSES)),notes:str(task.notes),createdAt:str(task.createdAt,100)};});
+      unique(tasks.map(task=>task.id));
+      const inventory=array(data.inventory||[],100).map(item=>{if(!isObject(item))fail();return {label:str(item.label,500),children:array(item.children,2000).map(value=>str(value,2000))};});
+      const programUrl=str(data.programUrl||'',2000);if(programUrl&&!/^https?:\/\//i.test(programUrl))fail();
+      return {format:FORMAT,version:1,target:str(data.target,500),programUrl,sourceLabel:str(data.sourceLabel||'',2000),inventory,inventoryNote:str(data.inventoryNote||''),routeNotes:str(data.routeNotes||''),updatedAt:data.updatedAt===null?null:str(data.updatedAt||'',100),features,featureNotes,checks,recaps,tasks};
+    }
+    const DOCUMENT_PATH=decodeURIComponent(location.pathname).replace(/^\//,'');
+    const API_URL='/api/notebook?file='+encodeURIComponent(DOCUMENT_PATH);
+    const DISK_MODE=location.protocol==='http:'&&['127.0.0.1','localhost'].includes(location.hostname);
+    let storageIssue='',preserveStoredData=false,revision='',apiToken='',databaseName='',dirtyVersion=0,savedVersion=0,saveTimer=null,saveInFlight=false,conflict=false,loaded=false;
+    function loadLegacy(){
+      let raw;try{raw=localStorage.getItem(STORAGE_KEY);}catch{return initialState();}
+      if(!raw)return initialState();
+      try{return validateBackup(JSON.parse(raw));}catch{preserveStoredData=true;return initialState();}
+    }
+    let state=initialState(),activeView='overview',selectedCategory='all',openFeatures=new Set(),editorContext=null;
+    function showStorageStatus(){
+      const pending=dirtyVersion>savedVersion;
+      $('storage-alert').hidden=!storageIssue;$('storage-alert').textContent=storageIssue;
+      if(storageIssue&&DISK_MODE&&loaded)$('storage-alert').append(document.createTextNode(' '),button(conflict?'Load latest JSON':'Retry save',()=>{if(conflict)askConfirm('Load the latest JSON file?','Your unsaved working notes will download as a backup before loading the shared JSON file.',reloadFromDisk,'Load latest JSON');else flushSave();}));
+      if(preserveStoredData)$('storage-alert').append(document.createTextNode(' '),button('Download preserved browser data',()=>{try{downloadText(localStorage.getItem(STORAGE_KEY)||'','unreadable-browser-notes.json');}catch{toast('Preserved browser data could not be read.');}}));
+      $('save-dot').classList.toggle('warning',Boolean(storageIssue)||pending);
+      $('save-status').textContent=!DISK_MODE?'Browser copy · needs migration':!loaded?'Loading JSON…':storageIssue?'Unsaved · export to keep':pending?'Saving to JSON…':'Saved to '+databaseName;
+      $('storage-help').textContent=DISK_MODE?'Shared by every browser using this local launcher. The JSON file holds your research.':'Start the local launcher, export these browser notes, then import them at the local URL.';
+    }
+    async function loadDisk(){
+      const response=await fetch(API_URL,{cache:'no-store'});const data=await response.json();if(!response.ok)throw new Error(data.error||'Could not load the JSON file.');
+      state=validateBackup(data.state);revision=data.revision;apiToken=data.token;databaseName=data.database;loaded=true;dirtyVersion=0;savedVersion=0;conflict=false;storageIssue='';applyTarget();showStorageStatus();return data.created;
+    }
+    async function reloadFromDisk(){
+      exportBackup('unsaved-before-reload');document.querySelectorAll('button,input,select,textarea').forEach(node=>node.disabled=true);
+      try{await loadDisk();renderActive();refreshCounts();}catch(error){storageIssue=error.message;}
+      finally{document.querySelectorAll('button,input,select,textarea').forEach(node=>node.disabled=false);showStorageStatus();}
+    }
+    function save(){
+      state.updatedAt=new Date().toISOString();dirtyVersion++;
+      if(!DISK_MODE){if(!preserveStoredData){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));savedVersion=dirtyVersion;}catch{storageIssue='Browser notes could not be saved. Export a backup before leaving this page.';}}showStorageStatus();return;}
+      clearTimeout(saveTimer);saveTimer=setTimeout(flushSave,350);showStorageStatus();
+    }
+    async function flushSave(){
+      if(!DISK_MODE||!loaded||saveInFlight||conflict||dirtyVersion===savedVersion)return;
+      saveInFlight=true;const version=dirtyVersion;const body=JSON.stringify(state);
+      try{
+        const post=()=>fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Notebook-Token':apiToken,'If-Match':revision},body});
+        let response=await post(),data=await response.json();
+        if(response.status===403){const latestResponse=await fetch(API_URL,{cache:'no-store'}),latest=await latestResponse.json();if(latestResponse.ok&&latest.revision===revision){apiToken=latest.token;response=await post();data=await response.json();}else if(latestResponse.ok){conflict=true;throw new Error('The JSON changed while the launcher restarted. Export your working notes before loading the latest file.');}}
+        if(!response.ok){if(response.status===409)conflict=true;throw new Error(data.error||'Could not write the JSON file.');}
+        revision=data.revision;savedVersion=version;storageIssue='';
+      }catch(error){storageIssue=error.message+' Your working notes are still on this page; export a backup to keep them.';}
+      finally{saveInFlight=false;showStorageStatus();if(!storageIssue&&dirtyVersion>savedVersion)flushSave();}
+    }
+    async function syncDisk(){
+      if(!DISK_MODE||!loaded||saveInFlight||dirtyVersion>savedVersion||$('editor').open||$('confirm-dialog').open)return;
+      const generation=dirtyVersion;
+      try{const response=await fetch(API_URL,{cache:'no-store'}),data=await response.json();if(!response.ok||saveInFlight||dirtyVersion!==generation||dirtyVersion>savedVersion||$('editor').open||$('confirm-dialog').open)return;apiToken=data.token;if(data.revision!==revision){state=validateBackup(data.state);revision=data.revision;databaseName=data.database;applyTarget();renderActive();refreshCounts();toast('Loaded changes from the shared JSON file.');}storageIssue='';showStorageStatus();}catch{}
+    }
+    function applyTarget(){
+      document.title=state.target+' · Research notebook';$('brand-name').textContent=state.target+' / field notes';$('target-name').textContent=state.target;
+      $('program-link').hidden=!state.programUrl;if(state.programUrl)$('program-link').href=state.programUrl;
+      $('source-footer').textContent=state.sourceLabel?'Sources: '+state.sourceLabel:'Database: '+(databaseName||'created by the local launcher');
+      const count=state.inventory.reduce((sum,item)=>sum+item.children.length,0);$('source-summary').textContent=count?count+' observed API addresses · your inventory stays with the target.':'Build your feature map, record checks, and leave notes for the next session.';$('show-evidence').hidden=!count;$('evidence-label').textContent=count?'Your observed evidence is here.':'Start with a functionality.';
+    }
+    function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,4500);}
+    function getFeature(id){return state.features.find(feature=>feature.id===id);}
+    function featureName(id){return getFeature(id)?.title||'General research';}
+    function checkState(testId){return state.checks[testId]||{status:'todo',result:'',updatedAt:''};}
+    function featureProgress(feature){const statuses=feature.tests.map(test=>checkState(test.id).status);return {done:statuses.filter(completed).length,total:statuses.length,started:statuses.some(status=>status!=='todo'),lead:statuses.includes('lead'),blocked:statuses.includes('blocked')};}
+    function progressText(feature){const progress=featureProgress(feature);if(progress.lead)return 'Has a lead';if(progress.total&&progress.done===progress.total)return 'Reviewed';if(progress.blocked)return 'Blocked';return progress.started?'In progress':'Not started';}
+    function totals(){const checks=state.features.flatMap(feature=>feature.tests).map(test=>checkState(test.id));return {total:checks.length,done:checks.filter(check=>completed(check.status)).length,leads:checks.filter(check=>check.status==='lead').length,open:state.tasks.filter(task=>task.status!=='done').length};}
+    function sortedTasks(){const ranks={high:0,medium:1,low:2};return [...state.tasks].sort((a,b)=>(a.status==='done')-(b.status==='done')||ranks[a.priority]-ranks[b.priority]||a.createdAt.localeCompare(b.createdAt));}
+    function sortedRecaps(){return [...state.recaps].sort((a,b)=>b.date.localeCompare(a.date));}
+    function refreshCounts(){const total=totals();$('nav-features').textContent=state.features.length;$('nav-recaps').textContent=state.recaps.length;$('nav-tasks').textContent=total.open;}
+    function showView(view,focus=true){
+      if(!['overview','features','recaps','next'].includes(view))return;
+      activeView=view;document.querySelectorAll('.view').forEach(section=>section.hidden=section.id!=='view-'+view);
+      document.querySelectorAll('[data-view]').forEach(node=>{if(node.dataset.view===view)node.setAttribute('aria-current','page');else node.removeAttribute('aria-current');});
+      renderActive();refreshCounts();
+      if(focus){$(view==='next'?'next-title':view+'-title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
+    }
+    function renderActive(){if(activeView==='overview')renderOverview();if(activeView==='features')renderFeatures();if(activeView==='recaps')renderRecaps();if(activeView==='next')renderTasks();}
+    function afterChange(message){save();refreshCounts();renderActive();if(message)toast(message);}
+    function resetFeatureFilters(){selectedCategory='all';$('feature-search').value='';$('test-focus').value='all';$('feature-status').value='all';}
+    function jumpToFeature(id){resetFeatureFilters();openFeatures.add(id);showView('features');const card=$('card-'+id);card?.scrollIntoView({block:'start'});card?.querySelector('summary')?.focus({preventScroll:true});}
+    function renderOverview(){
+      const total=totals();$('stats').replaceChildren();
+      const stats=[['Mapped surfaces',String(state.features.length),'UI areas + account flows'],['Checks reviewed',total.done+' / '+total.total,'Your recorded coverage'],['Open next checks',String(total.open),'Questions to come back to'],['Leads to validate',String(total.leads),'Marked by you · not confirmed']];
+      stats.forEach(([name,value,caption])=>{const node=el('div','stat');node.append(el('span','eyebrow',name),el('strong','value'+(name==='Leads to validate'?' pink':''),value),el('span','caption',caption));$('stats').append(node);});
+      const task=sortedTasks().find(item=>item.status!=='done');const panel=$('continue-panel');panel.replaceChildren(el('div','eyebrow pink','Continue the thread'));
+      if(task){const chips=el('div','chips');chips.append(chip(PRIORITIES[task.priority]+' priority','pink'),chip(TASK_STATUSES[task.status]),chip(featureName(task.featureId)));panel.append(el('h2','',task.title),chips,el('p','prose',task.notes||'Add a note with the request, hypothesis, and next step.'));const actions=el('div','actions');actions.append(button('Open next check ↗',()=>openTask(task.id),'btn primary'),button('Log a session',()=>openRecap(''),'btn ghost'));panel.append(actions);}else{panel.append(el('h2','','A clear queue. A fresh starting point.'),el('p','','Choose a functionality to review, or leave a note for the next session.'),button('+ Add next check',()=>openTask(''),'btn primary'));}
+      $('coverage').replaceChildren();
+      CATEGORY_LIST.forEach(category=>{const features=state.features.filter(feature=>feature.group===category);const progress=features.map(featureProgress);const done=progress.reduce((sum,item)=>sum+item.done,0),count=progress.reduce((sum,item)=>sum+item.total,0);const row=el('div','coverage-row'),meta=el('div','coverage-meta'),bar=el('div','progress'),fill=el('span');meta.append(el('span','',category),el('span','',done+' / '+count));fill.style.width=(count?done/count*100:0)+'%';bar.append(fill);row.append(meta,bar);$('coverage').append(row);});
+      $('recent-recaps').replaceChildren();
+      const recaps=sortedRecaps().slice(0,2);if(!recaps.length)$('recent-recaps').append(el('p','muted','No sessions yet. Log your first research session.'));
+      recaps.forEach(recap=>{const row=el('div','log-preview');row.append(el('span','eyebrow',formatDate(recap.date)+' · '+recap.focus),el('h3','',recap.title),el('p','',recap.summary),button('Read recap ↗',()=>{showView('recaps');$('recap-'+recap.id)?.scrollIntoView({block:'start'});},'btn ghost small'));$('recent-recaps').append(row);});
+      $('next-preview').replaceChildren();const tasks=sortedTasks().filter(item=>item.status!=='done').slice(0,3);
+      if(!tasks.length)$('next-preview').append(el('p','muted','No open checks. Add a question or a lead to follow.'));
+      tasks.forEach((item,index)=>{const row=el('div','next-preview'),body=el('div','preview-body');body.append(el('h3','',item.title),chip(PRIORITIES[item.priority]+' priority',item.priority==='high'?'pink':''));row.append(el('span','sequence',String(index+1).padStart(2,'0')),body,button('↗',()=>openTask(item.id),'btn ghost small'));row.lastChild.setAttribute('aria-label','Edit '+item.title);$('next-preview').append(row);});
+    }
+    function renderCategories(){
+      $('categories').replaceChildren();
+      ['all',...CATEGORY_LIST].forEach(category=>{const node=button(category==='all'?'All functionality':category,()=>{selectedCategory=category;renderFeatures();},'');node.setAttribute('aria-pressed',String(selectedCategory===category));$('categories').append(node);});
+    }
+    function matchingFeatures(){return state.features.filter(feature=>{
+      const progress=featureProgress(feature),filter=$('feature-status').value;
+      const text=JSON.stringify(feature)+' '+(state.featureNotes[feature.id]||'')+' '+feature.tests.map(test=>checkState(test.id).result).join(' ');
+      return (selectedCategory==='all'||feature.group===selectedCategory)&&textMatch(text,$('feature-search').value)&&($('test-focus').value==='all'||feature.tests.some(test=>test.type===$('test-focus').value))&&
+        (filter==='all'||filter==='untouched'&&!progress.started||filter==='active'&&progress.started&&progress.done<progress.total||filter==='reviewed'&&progress.total>0&&progress.done===progress.total||filter==='lead'&&progress.lead||filter==='blocked'&&progress.blocked);
+    });}
+    function renderNodes(items){const list=el('ul','nodes');items.forEach(item=>{const row=el('li','',typeof item==='string'?item:item.label);if(typeof item!=='string'){const children=el('ul');item.children.forEach(value=>children.append(el('li','',value)));row.append(children);}list.append(row);});return list;}
+    function statusSelect(options,value,label){const select=el('select');Object.entries(options).forEach(([key,title])=>{const option=el('option','',title);option.value=key;select.append(option);});select.value=value;select.setAttribute('aria-label',label);return select;}
+    function emptyState(container,title,description,action){const empty=el('div','empty');empty.append(el('h3','',title),el('p','',description));if(action)empty.append(action);container.append(empty);}
+    function renderFeatures(){
+      renderCategories();const matching=matchingFeatures();$('feature-results').textContent=matching.length+' of '+state.features.length+' functionalities shown';$('features').replaceChildren();
+      if(!matching.length){emptyState($('features'),'No matching functionalities','Try another keyword or clear your filters.',button('Clear filters',()=>{resetFeatureFilters();renderFeatures();}));return;}
+      matching.forEach(feature=>{
+        const index=state.features.indexOf(feature),progress=featureProgress(feature),details=el('details','feature');details.id='card-'+feature.id;details.open=openFeatures.has(feature.id);
+        details.addEventListener('toggle',()=>{if(details.open)openFeatures.add(feature.id);else openFeatures.delete(feature.id);});
+        const summary=el('summary'),heading=el('div');const badge=progressText(feature);const tags=el('div','chips');tags.append(chip(badge,progress.lead?'pink':badge==='Reviewed'?'mint':progress.blocked?'amber':''));[...new Set([...(feature.tags||[]),...feature.tests.map(test=>test.type)])].forEach(type=>tags.append(chip(type)));
+        heading.append(el('h3','',feature.title),el('div','path',feature.path||feature.group),tags,el('div','summary-progress',progress.done+' / '+progress.total+' checks reviewed'));const chevron=el('span','chevron','+');chevron.setAttribute('aria-hidden','true');summary.append(el('span','feature-number',String(index+1).padStart(2,'0')),heading,chevron);
+        const body=el('div','feature-body');body.append(el('div','subheading',feature.custom?'Your functionality notes':'Mapped functionality'),renderNodes(feature.items));if(feature.note)body.append(el('p','observation-note',feature.note));body.append(el('div','subheading','Research checks · record your result'));
+        if(!feature.tests.length)body.append(el('p','muted','No checks yet. Add a check for this functionality.'));
+        feature.tests.forEach(test=>{
+          const current=checkState(test.id),row=el('div','test-row'),top=el('div','test-top');top.append(el('h4','',test.title),chip(test.type,test.type==='OAuth'?'pink':''));const expected=el('div','expected');expected.append(el('b','','Expected: '),document.createTextNode(test.expected));
+          const controls=el('div','test-controls'),select=statusSelect(TEST_STATUSES,current.status,'Progress for '+test.title);
+          select.addEventListener('change',()=>{state.checks[test.id]={...checkState(test.id),status:select.value,updatedAt:new Date().toISOString()};afterChange();});controls.append(select);
+          if(test.ref){const link=el('a','','OWASP reference ↗');link.href=REFERENCES[test.ref];link.target='_blank';link.rel='noopener noreferrer';controls.append(link);}
+          const actions=el('div','actions');const edit=button('Edit check',()=>openTest(feature.id,test.id)),remove=button('Delete check',()=>deleteTest(feature.id,test.id),'btn ghost small danger');edit.setAttribute('aria-label','Edit check: '+test.title);remove.setAttribute('aria-label','Delete check: '+test.title);actions.append(edit,remove);controls.append(actions);
+          const result=el('textarea');result.rows=2;result.maxLength=30000;result.placeholder='Result, request ID, account A/B, JS file:line, or what is missing…';result.value=current.result;result.setAttribute('aria-label','Result and evidence for '+test.title);
+          result.addEventListener('input',()=>{state.checks[test.id]={...checkState(test.id),result:result.value,updatedAt:new Date().toISOString()};save();});
+          row.append(top,el('p','',test.detail),expected,controls,result);body.append(row);
+        });
+        const notes=el('div','feature-notes'),label=el('label','','Your notes & JavaScript leads'),textarea=el('textarea');textarea.id='notes-'+feature.id;textarea.rows=3;textarea.maxLength=30000;label.htmlFor=textarea.id;textarea.value=state.featureNotes[feature.id]||'';textarea.placeholder='Endpoints, parameter names, source → sink, assumptions, evidence…';textarea.addEventListener('input',()=>{state.featureNotes[feature.id]=textarea.value;save();});notes.append(label,textarea);
+        const actions=el('div','feature-actions');actions.append(button('+ Next check',()=>openTask('',{featureId:feature.id})),button('+ Session recap',()=>openRecap('',{featureId:feature.id})),button('+ Add check',()=>openTest(feature.id)),button('Edit functionality',()=>openFeature(feature.id)),button('Edit tags',()=>openTags(feature.id)));if(feature.custom)actions.append(button('Delete',()=>deleteFeature(feature.id),'btn ghost small danger'));notes.append(actions);body.append(notes);details.append(summary,body);$('features').append(details);
+      });
+    }
+    function recapBlock(title,text){const block=el('div','recap-block');block.append(el('div','subheading',title),el('p','prose',text||'Not recorded.'));return block;}
+    function renderRecaps(){
+      const recaps=sortedRecaps().filter(recap=>textMatch(JSON.stringify(recap)+' '+featureName(recap.featureId),$('recap-search').value));$('recap-results').textContent=recaps.length+' of '+state.recaps.length+' sessions shown';$('recaps').replaceChildren();
+      if(!recaps.length){emptyState($('recaps'),'No sessions here yet','Log what you tried and leave a starting point for next time.',button('+ Log a session',()=>openRecap(''),'btn primary'));return;}
+      recaps.forEach(recap=>{const article=el('article','recap');article.id='recap-'+recap.id;const date=el('div','recap-date');date.append(el('strong','',String(dateValue(recap.date).getDate()).padStart(2,'0')),el('span','',dateValue(recap.date).toLocaleDateString('en-GB',{month:'short',year:'numeric'})));
+        const body=el('div','recap-body'),header=el('div','recap-header'),heading=el('div'),tags=el('div','chips'),actions=el('div','actions');tags.append(chip(recap.focus||'Research','pink'),chip(featureName(recap.featureId)));heading.append(el('h2','',recap.title),tags);actions.append(button('Edit',()=>openRecap(recap.id)),button('Delete',()=>askConfirm('Delete this recap?','This removes the session from this notebook. Export a backup first if you want to keep a copy.',()=>{state.recaps=state.recaps.filter(item=>item.id!==recap.id);afterChange('Recap deleted.');},'Delete recap'),'btn ghost small danger'));header.append(heading,actions);
+        const columns=el('div','recap-columns'),left=el('div'),right=el('div');left.append(recapBlock('What I checked',recap.summary),recapBlock('What I learned / results',recap.findings));right.append(recapBlock('Evidence & references',recap.evidence),recapBlock('Scratch notes',recap.notes));columns.append(left,right);body.append(header,columns);
+        if(recap.next){const next=el('div','recap-next');next.append(el('div','subheading','Next time'),el('p','prose',recap.next),button('+ Turn into a next check',()=>openTask('',{title:recap.next.split('\n')[0].slice(0,500),notes:recap.next+'\n\nFrom session: '+recap.title+' ('+recap.date+')',featureId:recap.featureId}),'btn ghost small'));body.append(next);}article.append(date,body);$('recaps').append(article);
+      });
+    }
+    function renderTasks(){
+      const tasks=sortedTasks().filter(task=>{const status=$('task-status').value;return (status==='all'||status==='open'&&task.status!=='done'||status===task.status)&&($('task-priority').value==='all'||$('task-priority').value===task.priority)&&textMatch(JSON.stringify(task)+' '+featureName(task.featureId),$('task-search').value);});
+      $('task-results').textContent=tasks.length+' of '+state.tasks.length+' checks shown';$('tasks').replaceChildren();
+      if(!tasks.length){emptyState($('tasks'),'No checks in this view','Add a next step, or change your filters to see completed checks.',button('+ Add next check',()=>openTask(''),'btn primary'));return;}
+      tasks.forEach(task=>{const row=el('article','task'+(task.status==='done'?' done':''));row.id='task-'+task.id;const checkbox=el('input','task-check');checkbox.type='checkbox';checkbox.checked=task.status==='done';checkbox.setAttribute('aria-label','Mark '+task.title+' done');checkbox.addEventListener('change',()=>{task.status=checkbox.checked?'done':'todo';afterChange();});
+        const body=el('div','task-body'),tags=el('div','chips');tags.append(chip(PRIORITIES[task.priority]+' priority',task.priority==='high'?'pink':''),chip(TASK_STATUSES[task.status],task.status==='done'?'mint':task.status==='blocked'?'amber':''),chip(featureName(task.featureId)));body.append(el('h3','',task.title),tags);if(task.notes)body.append(el('p','',task.notes));
+        const controls=el('div','task-controls'),select=statusSelect(TASK_STATUSES,task.status,'Status for '+task.title);select.addEventListener('change',()=>{task.status=select.value;afterChange();});controls.append(select,button('Edit',()=>openTask(task.id)),button('Delete',()=>askConfirm('Delete this next check?','This removes the check and its notes from your queue.',()=>{state.tasks=state.tasks.filter(item=>item.id!==task.id);afterChange('Next check deleted.');},'Delete check'),'btn ghost small danger'));if(task.featureId)controls.append(button('Feature ↗',()=>jumpToFeature(task.featureId)));row.append(checkbox,body,controls);$('tasks').append(row);});
+    }
+    function addField(name,label,value,{type='text',options=null,required=false,full=false,placeholder='',rows=3}={}){
+      const wrap=el('div','field'+(full?' full':'')),caption=el('label','',label+(required?' *':''));caption.htmlFor='field-'+name;
+      let input;
+      if(options){input=el('select');options.forEach(([key,text])=>{const option=el('option','',text);option.value=key;input.append(option);});}
+      else if(type==='textarea'){input=el('textarea');input.rows=rows;input.maxLength=30000;}
+      else{input=el('input');input.type=type;if(type==='date'){input.min='1900-01-01';input.max='9999-12-31';}else input.maxLength=['title','target'].includes(name)?500:name==='focus'?200:2000;}
+      input.id='field-'+name;input.name=name;input.value=value||'';input.required=required;input.placeholder=placeholder;wrap.append(caption,input);$('editor-fields').append(wrap);return input;
+    }
+    function featureOptions(){return [['','General research'],...state.features.map(feature=>[feature.id,feature.title])];}
+    function prepareEditor(context,title,help=''){
+      editorContext=context;$('editor-title').textContent=title;$('editor-fields').replaceChildren();$('editor-help').textContent=help;$('editor-error').hidden=true;
+    }
+    function launchEditor(){$('editor').showModal();$('editor-fields').querySelector('input,select,textarea')?.focus();}
+    function openRecap(id='',defaults={}){
+      const recap=state.recaps.find(item=>item.id===id)||{date:todayISO(),focus:'Research',...defaults};prepareEditor({type:'recap',id},id?'Edit session recap':'Log a session','Check results are tracked in Functionalities & tests. A recap preserves the narrative and evidence from this session.');
+      addField('title','Session title',recap.title,{required:true,full:true,placeholder:'e.g. Traced reset flow and account binding'});addField('date','Session date',recap.date,{type:'date',required:true});addField('focus','Focus / outcome',recap.focus,{placeholder:'e.g. JS review, no issue found, lead…'});addField('featureId','Related functionality',recap.featureId,{options:featureOptions(),full:true});
+      addField('summary','What I checked',recap.summary,{type:'textarea',required:true,full:true,placeholder:'Flows, requests, files, accounts, and checks completed.'});addField('findings','What I learned / results',recap.findings,{type:'textarea',full:true,placeholder:'Observation, expected behavior, result, confidence, and what remains unproven.'});addField('evidence','Evidence & references',recap.evidence,{type:'textarea',full:true,placeholder:'Burp request IDs, local file:line, screenshots, notes. Omit live tokens.'});addField('next','Next time',recap.next,{type:'textarea',full:true,placeholder:'One concrete next step per line.'});addField('notes','Scratch notes',recap.notes,{type:'textarea',full:true,placeholder:'Questions, assumptions, routes, and reminders.'});launchEditor();
+    }
+    function openTask(id='',defaults={}){
+      const task=state.tasks.find(item=>item.id===id)||{priority:'medium',status:'todo',...defaults};prepareEditor({type:'task',id},id?'Edit next check':'Add a next check');
+      addField('title','Next check',task.title,{required:true,full:true,placeholder:'What exactly will you review?'});addField('priority','Priority',task.priority,{options:Object.entries(PRIORITIES)});addField('status','Status',task.status,{options:Object.entries(TASK_STATUSES)});addField('featureId','Related functionality',task.featureId,{options:featureOptions(),full:true});addField('notes','Context & notes',task.notes,{type:'textarea',full:true,rows:6,placeholder:'Hypothesis, preconditions, request/JS reference, expected outcome, and where to resume.'});launchEditor();
+    }
+    function itemsText(items){return items.map(item=>typeof item==='string'?item:[item.label,...item.children.map(child=>'  → '+child)].join('\n')).join('\n');}
+    function parseTags(text){const tags=[...new Set(text.split(',').map(value=>value.trim()).filter(Boolean))];if(tags.length>20||tags.some(tag=>tag.length>100))throw new Error('Use at most 20 tags, with each under 100 characters.');return tags;}
+    function openTags(featureId){
+      const feature=getFeature(featureId);if(!feature)return;prepareEditor({type:'tags',featureId},'Edit functionality tags','Comma-separated labels for your map. Check focus tags are edited with the check.');addField('tags','Tags',(feature.tags||[]).join(', '),{full:true,placeholder:'e.g. XSS, OAuth, JS review'});launchEditor();
+    }
+    function openFeature(id=''){
+      const feature=getFeature(id)||{};prepareEditor({type:'feature',id},id?'Edit functionality':'Add a functionality','New features start without preset tests. Add your own tests after saving.');
+      addField('title','Functionality name',feature.title,{required:true,full:true});addField('group','Category',feature.group||CATEGORY_LIST[0],{options:CATEGORY_LIST.map(category=>[category,category]),full:true});addField('tags','Tags',(feature.tags||[]).join(', '),{full:true,placeholder:'Comma-separated, e.g. XSS, OAuth, JS review'});addField('path','UI path / observed route',feature.path,{full:true,placeholder:'e.g. Profile → Settings → …'});addField('items','Fields & actions',itemsText(feature.items||[]),{type:'textarea',full:true,placeholder:'One field or action per line. Indent a child with →.'});addField('note','Mapping notes / unknowns',feature.note,{type:'textarea',full:true});launchEditor();
+    }
+    function openTest(featureId,id=''){
+      const feature=getFeature(featureId),test=feature?.tests.find(item=>item.id===id)||{};if(!feature||id&&!test.id)return;
+      prepareEditor({type:'test',featureId,id},id?'Edit check':'Add a check',id?'Editing a check keeps its progress and recorded result.':'This check will appear beside the functionality and count toward its progress.');
+      addField('title','Check title',test.title,{required:true,full:true});addField('type','Focus tag',test.type||'Custom',{options:['XSS','IDOR','OAuth','Authentication','Privacy','CSRF','Logic','JS review','Upload','Custom'].map(type=>[type,type]),full:true});addField('detail','Approach & preconditions',test.detail,{type:'textarea',required:true,full:true});addField('expected','Expected secure behavior',test.expected,{type:'textarea',required:true,full:true});addField('ref','OWASP reference',test.ref||'',{options:[['','None'],...Object.keys(REFERENCES).map(key=>[key,key.toUpperCase()])],full:true});launchEditor();
+    }
+    function parseItems(text){const items=[];for(const line of text.split('\n').filter(line=>line.trim())){const child=line.match(/^\s*→\s*(.+)$/);if(child&&items.length){const last=items[items.length-1];if(typeof last==='string')items[items.length-1]={label:last,children:[child[1].trim()]};else last.children.push(child[1].trim());}else items.push(line.trim());}return items;}
+    $('editor-form').addEventListener('submit',event=>{
+      event.preventDefault();if(!$('editor-form').reportValidity())return;const values=Object.fromEntries([...new FormData($('editor-form')).entries()].map(([key,value])=>[key,String(value).trim()]));const context=editorContext;
+      const error=message=>{$('editor-error').textContent=message;$('editor-error').hidden=false;};
+      let tags;if(context.type==='feature'||context.type==='tags'){try{tags=parseTags(values.tags||'');}catch(problem){return error(problem.message);}}
+      if(context.type==='tags'){
+        const feature=getFeature(context.featureId);if(!feature)return error('This functionality no longer exists.');feature.tags=tags;$('editor').close();afterChange('Functionality tags saved.');return;
+      }
+      if(context.type==='target'){
+        if(!values.target)return error('Add a target name or domain.');
+        if(values.programUrl&&!/^https?:\/\//i.test(values.programUrl))return error('Use an http:// or https:// program URL.');
+        state.target=values.target;state.programUrl=values.programUrl;$('editor').close();applyTarget();afterChange('Target settings saved.');return;
+      }
+      if(!values.title)return error('Add a title before saving.');
+      if(context.type==='recap'){
+        if(!context.id&&state.recaps.length>=2000)return error('This notebook has reached 2,000 recaps. Export a backup before removing old entries.');
+        if(!validDate(values.date)||!values.summary)return error('Add a valid date and a short description of what you checked.');
+        const entry={...values,id:context.id||uid('recap')};if(!entry.focus)entry.focus='Research';
+        if(context.id)state.recaps=state.recaps.map(item=>item.id===context.id?entry:item);else state.recaps.unshift(entry);
+      }
+      if(context.type==='task'){
+        if(!context.id&&state.tasks.length>=5000)return error('This notebook has reached 5,000 next checks. Export a backup before removing old entries.');
+        const existing=state.tasks.find(item=>item.id===context.id),entry={...values,id:context.id||uid('task'),createdAt:existing?.createdAt||new Date().toISOString()};
+        if(context.id)state.tasks=state.tasks.map(item=>item.id===context.id?entry:item);else state.tasks.push(entry);
+      }
+      if(context.type==='feature'){
+        if(!context.id&&state.features.length>=300)return error('This notebook has reached 300 functionalities. Export a backup before removing old entries.');
+        const existing=getFeature(context.id),items=parseItems(values.items);if(items.length>100||items.some(item=>(typeof item==='string'?item:item.label).length>2000||typeof item!=='string'&&item.children.some(child=>child.length>2000)))return error('Use at most 100 field/action lines, with each under 2,000 characters.');
+        const entry={id:context.id||uid('feature'),title:values.title,group:values.group,path:values.path,items,note:values.note,tags,custom:existing?.custom??true,tests:existing?.tests||[]};
+        if(context.id)state.features=state.features.map(item=>item.id===context.id?entry:item);else state.features.push(entry);openFeatures.add(entry.id);resetFeatureFilters();
+      }
+      if(context.type==='test'){
+        if(!values.detail||!values.expected)return error('Describe the approach and expected secure behavior.');
+        const feature=getFeature(context.featureId);if(!feature)return error('This functionality no longer exists.');
+        if(context.id&&!feature.tests.some(test=>test.id===context.id))return error('This check no longer exists.');
+        if(!context.id&&feature.tests.length>=100)return error('This functionality already has 100 checks.');
+        const entry={...values,id:context.id||uid('test')};if(context.id)feature.tests=feature.tests.map(test=>test.id===context.id?entry:test);else feature.tests.push(entry);openFeatures.add(feature.id);
+      }
+      $('editor').close();afterChange(context.type==='recap'?'Session recap saved.':context.type==='task'?'Next check saved.':context.type==='test'?(context.id?'Check saved.':'Check added.'):'Functionality saved.');
+    });
+    function askConfirm(title,message,accept,label='Continue'){
+      $('confirm-title').textContent=title;$('confirm-message').textContent=message;$('confirm-accept').textContent=label;askConfirm.accept=accept;$('confirm-dialog').showModal();
+    }
+    $('confirm-accept').addEventListener('click',()=>{const accept=askConfirm.accept;$('confirm-dialog').close();askConfirm.accept=null;accept?.();});
+    function deleteTest(featureId,id){
+      const feature=getFeature(featureId),test=feature?.tests.find(item=>item.id===id);if(!test)return;
+      askConfirm('Delete this check?',`Remove “${test.title}” and its recorded result from this functionality? Your functionality notes, recaps, and next checks will be kept.`,()=>{feature.tests=feature.tests.filter(item=>item.id!==id);delete state.checks[id];openFeatures.add(featureId);afterChange('Check deleted.');},'Delete check');
+    }
+    function deleteFeature(id){askConfirm('Delete this functionality?','Its tests, results, and feature notes will be removed. Related recaps and next checks will be kept as general research.',()=>{const feature=getFeature(id);feature.tests.forEach(test=>delete state.checks[test.id]);delete state.featureNotes[id];state.features=state.features.filter(item=>item.id!==id);state.recaps.forEach(item=>{if(item.featureId===id)item.featureId='';});state.tasks.forEach(item=>{if(item.featureId===id)item.featureId='';});openFeatures.delete(id);afterChange('Functionality deleted.');},'Delete functionality');}
+    function downloadText(text,filename){const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),link=el('a');link.href=url;link.download=filename;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+    function exportBackup(prefix='research-notebook'){downloadText(JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2),prefix+'-'+todayISO()+'.json');}
+    $('export').addEventListener('click',()=>{exportBackup();toast('Backup exported with your tests, results, notes, recaps, and next checks.');});
+    $('import').addEventListener('click',()=>$('import-file').click());
+    $('import-file').addEventListener('change',async event=>{
+      const file=event.target.files[0];event.target.value='';if(!file)return;
+      try{
+        if(file.size>50*1024*1024)throw new Error('This backup is too large (maximum 50 MB). Your existing notes were kept.');
+        const next=validateBackup(JSON.parse(await file.text()));
+        askConfirm('Restore this notebook backup?',`Replace this notebook with ${next.features.length} functionalities, ${next.recaps.length} recaps, and ${next.tasks.length} next checks? A backup of your current working notes will download before replacement.`,()=>{
+          exportBackup('notebook-before-import');state=next;preserveStoredData=false;openFeatures.clear();resetFeatureFilters();$('recap-search').value='';$('task-search').value='';$('task-status').value='open';$('task-priority').value='all';applyTarget();afterChange('Notebook restored from backup.');
+        },'Restore backup');
+      }catch(error){toast(error instanceof SyntaxError?'This file contains invalid JSON. Your existing notes were kept.':error.message);}
+    });
+    function showEvidence(){
+      const body=$('evidence-body');body.replaceChildren(el('p','muted',state.inventoryNote));state.inventory.forEach(item=>{const block=el('div','endpoint-block');block.append(el('h3','',item.label));item.children.forEach(address=>block.append(el('code','',address)));body.append(block);});
+      if(state.routeNotes)body.append(el('div','subheading','Route-pattern notes'),el('p','prose',state.routeNotes));$('evidence-dialog').showModal();
+    }
+    function openTarget(){
+      prepareEditor({type:'target'},'Target settings','The target name and program link are stored in this target’s JSON file.');addField('target','Target name / domain',state.target,{required:true,full:true});addField('programUrl','Program engagement URL',state.programUrl,{full:true,placeholder:'https://…'});launchEditor();
+    }
+    document.querySelectorAll('[data-close]').forEach(node=>node.addEventListener('click',()=>$(node.dataset.close).close()));
+    document.querySelectorAll('[data-view]').forEach(node=>node.addEventListener('click',()=>showView(node.dataset.view)));
+    document.querySelectorAll('[data-goto]').forEach(node=>node.addEventListener('click',()=>showView(node.dataset.goto)));
+    document.querySelectorAll('[data-action="new-recap"]').forEach(node=>node.addEventListener('click',()=>openRecap('')));
+    document.querySelectorAll('[data-action="new-task"]').forEach(node=>node.addEventListener('click',()=>openTask('')));
+    $('target-settings').addEventListener('click',openTarget);
+    $('new-feature').addEventListener('click',()=>openFeature(''));
+    ['feature-search','test-focus','feature-status'].forEach(id=>$(id).addEventListener(id==='feature-search'?'input':'change',renderFeatures));
+    $('recap-search').addEventListener('input',renderRecaps);['task-search','task-status','task-priority'].forEach(id=>$(id).addEventListener(id==='task-search'?'input':'change',renderTasks));
+    $('clear-filters').addEventListener('click',()=>{resetFeatureFilters();renderFeatures();});
+    $('expand').addEventListener('click',()=>{matchingFeatures().forEach(feature=>openFeatures.add(feature.id));renderFeatures();});
+    $('collapse').addEventListener('click',()=>{matchingFeatures().forEach(feature=>openFeatures.delete(feature.id));renderFeatures();});
+    $('show-evidence').addEventListener('click',showEvidence);
+    let printSnapshot=null;
+    window.addEventListener('beforeprint',()=>{
+      if(printSnapshot)return;
+      const ids=['feature-search','test-focus','feature-status','recap-search','task-search','task-status','task-priority'];
+      printSnapshot={category:selectedCategory,open:new Set(openFeatures),filters:Object.fromEntries(ids.map(id=>[id,$(id).value]))};
+      resetFeatureFilters();$('recap-search').value='';$('task-search').value='';$('task-status').value='all';$('task-priority').value='all';
+      state.features.forEach(feature=>openFeatures.add(feature.id));renderOverview();renderRecaps();renderTasks();renderFeatures();
+      document.body.classList.add('preparing-print');
+      document.querySelectorAll('textarea').forEach(node=>{node.dataset.oldHeight=node.style.height;node.style.height='auto';node.style.height=Math.max(node.scrollHeight,60)+'px';});
+    });
+    window.addEventListener('afterprint',()=>{if(!printSnapshot)return;selectedCategory=printSnapshot.category;Object.entries(printSnapshot.filters).forEach(([id,value])=>$(id).value=value);openFeatures=printSnapshot.open;printSnapshot=null;document.body.classList.remove('preparing-print');document.querySelectorAll('textarea').forEach(node=>{node.style.height=node.dataset.oldHeight||'';});renderActive();});
+    $('print').addEventListener('click',()=>window.print());
+    $('today').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    window.addEventListener('beforeunload',event=>{if(DISK_MODE&&dirtyVersion>savedVersion){flushSave();event.preventDefault();event.returnValue='';}});
+    window.addEventListener('focus',syncDisk);
+    setInterval(()=>{if(!document.hidden)syncDisk();},5000);
+    async function initialize(){
+      document.querySelectorAll('button,input,select,textarea').forEach(node=>node.disabled=true);
+      try{
+        if(DISK_MODE){const created=await loadDisk();refreshCounts();showView('overview',false);if(created)openTarget();}
+        else{state=loadLegacy();loaded=true;storageIssue='Open through the local launcher to save to an adjacent JSON file. Run: python3 notebook_creator.py, then visit http://127.0.0.1:8765/. Existing browser notes are preserved; export them here and import them at the launcher URL.';applyTarget();refreshCounts();showView('overview',false);}
+      }catch(error){storageIssue=error.message+' The JSON file has not been replaced. Restart the launcher or fix the existing JSON file, then reload this page.';}
+      finally{document.querySelectorAll('button,input,select,textarea').forEach(node=>node.disabled=!loaded);showStorageStatus();}
+    }
+    initialize();
+
+  </script>
+</body>
+</html>
